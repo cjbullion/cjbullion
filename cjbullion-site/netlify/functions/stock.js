@@ -1,8 +1,7 @@
-// Simple inventory via Netlify Blobs
-// GET  /.netlify/functions/stock          → { round: 1, sticker: 50 }
-// POST /.netlify/functions/stock  body: { item: "round", qty: 1 } → decrements if available
-
-const DEFAULTS = { round: 1, sticker: 50 };
+const DEFAULTS = {
+  round: 1, sticker: 50,
+  bar13: 1, bar113: 1, bar97: 1, bar5lb: 1, bar2lb: 1, bar116: 1, bar12oz: 1, bar33: 1
+};
 
 exports.handler = async (event) => {
   const headers = {
@@ -11,7 +10,6 @@ exports.handler = async (event) => {
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
     "Content-Type": "application/json",
   };
-
   if (event.httpMethod === "OPTIONS") {
     return { statusCode: 204, headers, body: "" };
   }
@@ -21,14 +19,10 @@ exports.handler = async (event) => {
     const { getStore } = require("@netlify/blobs");
     store = getStore("inventory");
   } catch (e) {
-    // Fallback if blobs not available — return defaults (no persistence)
-    if (event.httpMethod === "GET") {
-      return { statusCode: 200, headers, body: JSON.stringify(DEFAULTS) };
-    }
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify({ ok: false, error: "Storage unavailable", stock: DEFAULTS }),
+      body: JSON.stringify({ ...DEFAULTS, _fallback: true }),
     };
   }
 
@@ -50,48 +44,22 @@ exports.handler = async (event) => {
         await store.set("stock", JSON.stringify(DEFAULTS));
         return { statusCode: 200, headers, body: JSON.stringify({ ok: true, stock: DEFAULTS }) };
       }
-      const item = body.item; // "round" or "sticker"
+      const item = body.item;
       const qty = Math.max(1, parseInt(body.qty || 1, 10));
-
       if (!item || !(item in DEFAULTS)) {
-        return {
-          statusCode: 400,
-          headers,
-          body: JSON.stringify({ ok: false, error: "Invalid item" }),
-        };
+        return { statusCode: 400, headers, body: JSON.stringify({ ok: false, error: "Invalid item" }) };
       }
-
       const raw = await store.get("stock");
       const stock = raw ? JSON.parse(raw) : { ...DEFAULTS };
-
       if ((stock[item] || 0) < qty) {
-        return {
-          statusCode: 409,
-          headers,
-          body: JSON.stringify({
-            ok: false,
-            error: "Not enough stock",
-            stock,
-          }),
-        };
+        return { statusCode: 409, headers, body: JSON.stringify({ ok: false, error: "Sold out", stock }) };
       }
-
       stock[item] = (stock[item] || 0) - qty;
       await store.set("stock", JSON.stringify(stock));
-
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({ ok: true, stock }),
-      };
+      return { statusCode: 200, headers, body: JSON.stringify({ ok: true, stock }) };
     }
-
     return { statusCode: 405, headers, body: JSON.stringify({ error: "Method not allowed" }) };
   } catch (err) {
-    return {
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({ ok: false, error: String(err) }),
-    };
+    return { statusCode: 500, headers, body: JSON.stringify({ ok: false, error: String(err) }) };
   }
 };

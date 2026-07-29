@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CJ Bullion | Custom Pure Copper Bars</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: {
+      copper: { 300:'#e8a87c', 400:'#d4895a', 500:'#c97a3f', 900:'#3d2a1a' },
+      dark: { 700:'#1a1a1a', 800:'#121212', 900:'#0a0a0a' }
+    }
+  }}
+}
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  body { background:#0a0a0a; color:#e5e5e5; }
+  #cj-loader { position:fixed; inset:0; z-index:99999; background:#000; display:flex; align-items:center; justify-content:center; }
+  #cj-loader.hide { opacity:0; visibility:hidden; pointer-events:none; transition:opacity .5s; }
+  #cj-loader video { max-width:100%; max-height:100%; object-fit:contain; }
+  #cart-drawer { transition: transform .3s ease; }
+  #lightbox { display:none; position:fixed; inset:0; z-index:100000; background:rgba(0,0,0,.92); align-items:center; justify-content:center; flex-direction:column; padding:1rem; }
+  #lightbox.open { display:flex; }
+  #lightbox img.main { max-width:95vw; max-height:70vh; border-radius:12px; object-fit:contain; }
+  #lightbox .thumbs { display:flex; gap:8px; margin-top:1rem; flex-wrap:wrap; justify-content:center; }
+  #lightbox .thumbs img { width:72px; height:72px; object-fit:cover; border-radius:8px; cursor:pointer; border:2px solid transparent; opacity:.7; }
+  #lightbox .thumbs img.on { border-color:#c97a3f; opacity:1; }
+</style>
+</head>
+<body class="bg-dark-900 text-gray-100">
+
+<div id="cj-loader">
+  <video id="intro-vid" src="intro.mp4" autoplay muted playsinline></video>
+</div>
+
+<nav class="fixed top-0 left-0 right-0 z-50 bg-dark-900/95 border-b border-copper-900/40 backdrop-blur">
+  <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+    <a href="#" class="font-bold text-xl text-copper-300">CJ Bullion</a>
+    <div class="flex items-center gap-4">
+      <a href="https://www.instagram.com/copperjunglebullion/" target="_blank" rel="noopener" class="text-copper-300"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.tiktok.com/@copperjunglebullion" target="_blank" rel="noopener" class="text-copper-300"><i class="fab fa-tiktok"></i></a>
+      <a href="https://www.facebook.com/profile.php?id=61576116927892" target="_blank" rel="noopener" class="text-copper-300"><i class="fab fa-facebook"></i></a>
+      <button id="cart-btn" type="button" class="relative p-2 rounded-lg bg-dark-700">
+        <i class="fas fa-shopping-cart text-copper-300"></i>
+        <span id="cart-count" class="absolute -top-1 -right-1 w-5 h-5 bg-copper-500 text-dark-900 text-xs font-bold rounded-full flex items-center justify-center hidden">0</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<section class="pt-28 pb-12 text-center px-4">
+  <p class="text-copper-300 text-sm tracking-widest uppercase mb-2">Hand-stamped · EST. 2026</p>
+  <h1 class="text-4xl sm:text-5xl font-bold mb-2">Pure Copper Bars</h1>
+  <p class="text-xl text-copper-300 mb-3">Made to Order</p>
+  <p class="text-gray-400 max-w-xl mx-auto mb-4">Pure copper bars — stamped CJ Bullion. Ships nationwide.</p>
+  <p class="text-sm text-gray-500">Shipping $9 (1–4 bars) · $20 (5+) · Stickers $2</p>
+</section>
+
+<section id="products" class="py-10 px-4">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-10">For Sale</h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <div class="bg-dark-800 rounded-2xl border border-copper-900/40 overflow-hidden flex flex-col" data-id="sticker">
+        <div class="aspect-square bg-dark-900 p-6 flex items-center justify-center">
+          <img src="sticker.jpg" alt="Sticker" class="w-full h-full object-contain">
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="text-lg font-semibold">CJ Bullion Sticker</h3>
+          <p class="text-copper-300 text-2xl font-bold my-1">$2.00</p>
+          <p class="text-sm text-gray-400 mb-4 flex-1">1 free with every order while supplies last</p>
+          <button type="button" class="add-btn w-full py-3 bg-copper-500 hover:bg-copper-400 text-dark-900 font-semibold rounded-xl" data-id="sticker" data-name="CJ Bullion Sticker" data-price="2">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="bg-dark-800 rounded-2xl border border-copper-900/40 overflow-hidden flex flex-col" data-id="round">
+        <div class="aspect-square bg-dark-900 overflow-hidden">
+          <video src="round-video.mp4" class="w-full h-full object-cover" autoplay muted loop playsinline></video>
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="text-lg font-semibold">High Relief Copper Round</h3>
+          <p class="text-xs text-gray-500">CJ Bullion / GravenMade · .9999 Cu</p>
+          <p class="text-copper-300 text-2xl font-bold my-1">$25.00</p>
+          <p class="text-sm text-gray-400 mb-4 flex-1">Limited quantity</p>
+          <button type="button" class="add-btn w-full py-3 bg-copper-500 hover:bg-copper-400 text-dark-900 font-semibold rounded-xl" data-id="round" data-name="High Relief Copper Round" data-price="25">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="bg-dark-800 rounded-2xl border border-copper-900/40 overflow-hidden flex flex-col" data-id="bar01">
+        <div class="cursor-pointer" onclick="openLB(['bar01-0.jpg','bar01-1.jpg'])">
+          <img src="bar01-0.jpg" alt="Bar 01" class="w-full aspect-square object-cover">
+          <img src="bar01-1.jpg" alt="back" class="w-full h-20 object-cover border-t border-copper-900/40">
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="text-lg font-semibold">2.5 lb Copper Bar #01</h3>
+          <p class="text-xs text-gray-500">1140g · Serial 01 · Stamped CJ Bullion</p>
+          <p class="text-copper-300 text-2xl font-bold my-1">$60.00</p>
+          <p class="text-sm text-gray-400 mb-4 flex-1">Front &amp; back · Shipping from $9</p>
+          <button type="button" class="add-btn w-full py-3 bg-copper-500 hover:bg-copper-400 text-dark-900 font-semibold rounded-xl" data-id="bar01" data-name="2.5 lb Copper Bar #01" data-price="60">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="bg-dark-800 rounded-2xl border border-copper-900/40 overflow-hidden flex flex-col" data-id="bar02">
+        <div class="cursor-pointer" onclick="openLB(['bar02-0.jpg','bar02-1.jpg'])">
+          <img src="bar02-0.jpg" alt="Bar 02" class="w-full aspect-square object-cover">
+          <img src="bar02-1.jpg" alt="back" class="w-full h-20 object-cover border-t border-copper-900/40">
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="text-lg font-semibold">2.5 lb Copper Bar #02</h3>
+          <p class="text-xs text-gray-500">1151g · Stamped CJ Bullion</p>
+          <p class="text-copper-300 text-2xl font-bold my-1">$60.00</p>
+          <p class="text-sm text-gray-400 mb-4 flex-1">Front &amp; back · Shipping from $9</p>
+          <button type="button" class="add-btn w-full py-3 bg-copper-500 hover:bg-copper-400 text-dark-900 font-semibold rounded-xl" data-id="bar02" data-name="2.5 lb Copper Bar #02" data-price="60">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="bg-dark-800 rounded-2xl border border-copper-900/40 overflow-hidden flex flex-col" data-id="bar13">
+        <div class="cursor-pointer" onclick="openLB(['bar1-b.jpg','bar1-a.jpg'])">
+          <img src="bar1-b.jpg" alt="1lb 13oz" class="w-full aspect-square object-cover">
+          <img src="bar1-a.jpg" alt="back" class="w-full h-20 object-cover border-t border-copper-900/40">
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="text-lg font-semibold">1 lb 13 oz Polished Face Bar</h3>
+          <p class="text-xs text-gray-500">1 lb 13 oz · Polished face</p>
+          <p class="text-copper-300 text-2xl font-bold my-1">$35.00</p>
+          <p class="text-sm text-gray-400 mb-4 flex-1">Front &amp; back · Shipping from $9</p>
+          <button type="button" class="add-btn w-full py-3 bg-copper-500 hover:bg-copper-400 text-dark-900 font-semibold rounded-xl" data-id="bar13" data-name="1 lb 13 oz Polished Face Bar" data-price="35">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="bg-dark-800 rounded-2xl border border-copper-900/40 overflow-hidden flex flex-col" data-id="bar113">
+        <div class="cursor-pointer" onclick="openLB(['bar113-2.jpg','bar113-0.jpg'])">
+          <img src="bar113-2.jpg" alt="1lb 11.3oz" class="w-full aspect-square object-cover">
+          <img src="bar113-0.jpg" alt="back" class="w-full h-20 object-cover border-t border-copper-900/40">
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="text-lg font-semibold">1 lb 11.3 oz Hammered Bar</h3>
+          <p class="text-xs text-gray-500">1 lb 11.3 oz · Hammered</p>
+          <p class="text-copper-300 text-2xl font-bold my-1">$35.00</p>
+          <p class="text-sm text-gray-400 mb-4 flex-1">Front &amp; back · Shipping from $9</p>
+          <button type="button" class="add-btn w-full py-3 bg-copper-500 hover:bg-copper-400 text-dark-900 font-semibold rounded-xl" data-id="bar113" data-name="1 lb 11.3 oz Hammered Bar" data-price="35">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="bg-dark-800 rounded-2xl border border-copper-900/40 overflow-hidden flex flex-col" data-id="bar97">
+        <div class="cursor-pointer" onclick="openLB(['bar97-1.jpg','bar97-0.jpg'])">
+          <img src="bar97-1.jpg" alt="1lb 9.7oz" class="w-full aspect-square object-cover">
+          <img src="bar97-0.jpg" alt="back" class="w-full h-20 object-cover border-t border-copper-900/40">
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="text-lg font-semibold">1 lb 9.7 oz Hammered Bar</h3>
+          <p class="text-xs text-gray-500">1 lb 9.7 oz · Hammered rustic</p>
+          <p class="text-copper-300 text-2xl font-bold my-1">$35.00</p>
+          <p class="text-sm text-gray-400 mb-4 flex-1">Front &amp; back · Shipping from $9</p>
+          <button type="button" class="add-btn w-full py-3 bg-copper-500 hover:bg-copper-400 text-dark-900 font-semibold rounded-xl" data-id="bar97" data-name="1 lb 9.7 oz Hammered Bar" data-price="35">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="bg-dark-800 rounded-2xl border border-copper-900/40 overflow-hidden flex flex-col" data-id="bar5lb">
+        <div class="cursor-pointer" onclick="openLB(['bar5lb-2.jpg','bar5lb-0.jpg'])">
+          <img src="bar5lb-2.jpg" alt="5lb" class="w-full aspect-square object-cover">
+          <img src="bar5lb-0.jpg" alt="back" class="w-full h-20 object-cover border-t border-copper-900/40">
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="text-lg font-semibold">5 lb 3.6 oz Full Hammer Bar</h3>
+          <p class="text-xs text-gray-500">5 lb 3.6 oz · Full hammer</p>
+          <p class="text-copper-300 text-2xl font-bold my-1">$120.00</p>
+          <p class="text-sm text-gray-400 mb-4 flex-1">Front &amp; back · Shipping from $9</p>
+          <button type="button" class="add-btn w-full py-3 bg-copper-500 hover:bg-copper-400 text-dark-900 font-semibold rounded-xl" data-id="bar5lb" data-name="5 lb 3.6 oz Full Hammer Bar" data-price="120">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="bg-dark-800 rounded-2xl border border-copper-900/40 overflow-hidden flex flex-col" data-id="bar2lb">
+        <div class="cursor-pointer" onclick="openLB(['bar2lb-1.jpg','bar2lb-0.jpg'])">
+          <img src="bar2lb-1.jpg" alt="2lb" class="w-full aspect-square object-cover">
+          <img src="bar2lb-0.jpg" alt="back" class="w-full h-20 object-cover border-t border-copper-900/40">
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="text-lg font-semibold">2 lb Polished Face Bar</h3>
+          <p class="text-xs text-gray-500">2 lb · Polished face</p>
+          <p class="text-copper-300 text-2xl font-bold my-1">$45.00</p>
+          <p class="text-sm text-gray-400 mb-4 flex-1">Front &amp; back · Shipping from $9</p>
+          <button type="button" class="add-btn w-full py-3 bg-copper-500 hover:bg-copper-400 text-dark-900 font-semibold rounded-xl" data-id="bar2lb" data-name="2 lb Polished Face Bar" data-price="45">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="bg-dark-800 rounded-2xl border border-copper-900/40 overflow-hidden flex flex-col" data-id="bar116">
+        <div class="cursor-pointer" onclick="openLB(['bar116-1.jpg','bar116-0.jpg'])">
+          <img src="bar116-1.jpg" alt="11.6oz" class="w-full aspect-square object-cover">
+          <img src="bar116-0.jpg" alt="back" class="w-full h-20 object-cover border-t border-copper-900/40">
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="text-lg font-semibold">1 lb 11.6 oz Hammered Bar</h3>
+          <p class="text-xs text-gray-500">1 lb 11.6 oz · Hammered face</p>
+          <p class="text-copper-300 text-2xl font-bold my-1">$30.00</p>
+          <p class="text-sm text-gray-400 mb-4 flex-1">Front &amp; back · Shipping from $9</p>
+          <button type="button" class="add-btn w-full py-3 bg-copper-500 hover:bg-copper-400 text-dark-900 font-semibold rounded-xl" data-id="bar116" data-name="1 lb 11.6 oz Hammered Bar" data-price="30">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="bg-dark-800 rounded-2xl border border-copper-900/40 overflow-hidden flex flex-col" data-id="bar12oz">
+        <div class="cursor-pointer" onclick="openLB(['bar12oz-1.jpg','bar12oz-0.jpg'])">
+          <img src="bar12oz-1.jpg" alt="12oz" class="w-full aspect-square object-cover">
+          <img src="bar12oz-0.jpg" alt="back" class="w-full h-20 object-cover border-t border-copper-900/40">
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="text-lg font-semibold">1 lb 12 oz Polished Face Bar</h3>
+          <p class="text-xs text-gray-500">1 lb 12 oz · Polished face</p>
+          <p class="text-copper-300 text-2xl font-bold my-1">$35.00</p>
+          <p class="text-sm text-gray-400 mb-4 flex-1">Front &amp; back · Shipping from $9</p>
+          <button type="button" class="add-btn w-full py-3 bg-copper-500 hover:bg-copper-400 text-dark-900 font-semibold rounded-xl" data-id="bar12oz" data-name="1 lb 12 oz Polished Face Bar" data-price="35">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="bg-dark-800 rounded-2xl border border-copper-900/40 overflow-hidden flex flex-col" data-id="bar33">
+        <div class="cursor-pointer" onclick="openLB(['bar33-1.jpg','bar33-0.jpg'])">
+          <img src="bar33-1.jpg" alt="3lb" class="w-full aspect-square object-cover">
+          <img src="bar33-0.jpg" alt="back" class="w-full h-20 object-cover border-t border-copper-900/40">
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="text-lg font-semibold">3 lb 3 oz Hammered Bar</h3>
+          <p class="text-xs text-gray-500">3 lb 3 oz · Hammered</p>
+          <p class="text-copper-300 text-2xl font-bold my-1">$70.00</p>
+          <p class="text-sm text-gray-400 mb-4 flex-1">Front &amp; back · Shipping from $9</p>
+          <button type="button" class="add-btn w-full py-3 bg-copper-500 hover:bg-copper-400 text-dark-900 font-semibold rounded-xl" data-id="bar33" data-name="3 lb 3 oz Hammered Bar" data-price="70">Add to Cart</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="py-16 px-4 border-t border-copper-900/30">
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="text-3xl font-bold mb-8">Why Buy From CJ Bullion?</h2>
+    <div class="grid sm:grid-cols-3 gap-8 text-left">
+      <div><h3 class="font-semibold text-copper-300 mb-2">Custom Sizes</h3><p class="text-sm text-gray-400">Ask for a specific weight — we pour to order.</p></div>
+      <div><h3 class="font-semibold text-copper-300 mb-2">Transparent Pricing</h3><p class="text-sm text-gray-400">Clear prices. No hidden fees.</p></div>
+      <div><h3 class="font-semibold text-copper-300 mb-2">Secure &amp; Insured</h3><p class="text-sm text-gray-400">USPS Priority, tracked and insured.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="py-16 px-4 bg-dark-800/50 text-center">
+  <h2 class="text-2xl font-bold mb-4">Contact / Custom Orders</h2>
+  <p class="text-copper-300 mb-6">cjbullions@yahoo.com</p>
+  <div class="flex justify-center gap-6 text-2xl text-copper-300">
+    <a href="https://www.instagram.com/copperjunglebullion/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+    <a href="https://www.tiktok.com/@copperjunglebullion" target="_blank" rel="noopener"><i class="fab fa-tiktok"></i></a>
+    <a href="https://www.facebook.com/profile.php?id=61576116927892" target="_blank" rel="noopener"><i class="fab fa-facebook"></i></a>
+  </div>
+</section>
+
+<footer class="py-8 text-center text-gray-600 text-sm">© 2026 CJ Bullion</footer>
+
+<div id="cart-overlay" class="hidden fixed inset-0 bg-black/60 z-40"></div>
+<div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-dark-800 z-50 translate-x-full shadow-2xl flex flex-col border-l border-copper-900/40">
+  <div class="p-4 border-b border-copper-900/30 flex justify-between items-center">
+    <h3 class="font-bold text-lg">Your Cart</h3>
+    <button type="button" id="close-cart" class="p-2 text-gray-400">✕</button>
+  </div>
+  <div id="cart-items" class="flex-1 overflow-y-auto p-5"><p class="text-gray-500 text-center py-8">Your cart is empty</p></div>
+  <div class="p-5 border-t border-copper-900/30 space-y-2">
+    <div class="flex justify-between text-sm"><span class="text-gray-400">Subtotal</span><span id="cart-subtotal">$0.00</span></div>
+    <div class="flex justify-between text-sm"><span class="text-gray-400">Shipping</span><span id="cart-shipping">$0.00</span></div>
+    <div class="flex justify-between font-bold"><span>Total</span><span id="cart-total" class="text-copper-300">$0.00</span></div>
+    <button type="button" id="checkout-btn" class="w-full py-3 mt-3 bg-copper-500 hover:bg-copper-400 text-dark-900 font-semibold rounded-xl disabled:opacity-40" disabled>Pay with PayPal</button>
+    <p class="text-xs text-gray-500 text-center">PayPal · USPS Priority</p>
+  </div>
+</div>
+
+<div id="lightbox" onclick="if(event.target===this)this.classList.remove('open')">
+  <button type="button" onclick="document.getElementById('lightbox').classList.remove('open')" style="position:absolute;top:1rem;right:1rem;color:#fff;font-size:1.5rem;background:none;border:none;cursor:pointer">✕</button>
+  <img class="main" id="lb-main" src="" alt="">
+  <div class="thumbs" id="lb-thumbs"></div>
+</div>
+
+<script>
+(function(){
+  var loader = document.getElementById('cj-loader');
+  var vid = document.getElementById('intro-vid');
+  function hideLoader(){ if(loader) loader.classList.add('hide'); }
+  if(vid){ vid.addEventListener('ended', hideLoader); vid.addEventListener('error', hideLoader); }
+  setTimeout(hideLoader, 5000);
+
+  window.openLB = function(srcs){
+    var lb = document.getElementById('lightbox');
+    var main = document.getElementById('lb-main');
+    var thumbs = document.getElementById('lb-thumbs');
+    function show(i){
+      main.src = srcs[i];
+      thumbs.innerHTML = '';
+      srcs.forEach(function(s,j){
+        var t = document.createElement('img');
+        t.src = s;
+        if(j===i) t.className = 'on';
+        t.onclick = function(e){ e.stopPropagation(); show(j); };
+        thumbs.appendChild(t);
+      });
+    }
+    show(0);
+    lb.classList.add('open');
+  };
+
+  var STOCK_URL = '/.netlify/functions/stock';
+  var stock = {};
+  var cart = [];
+  var busy = false;
+
+  function money(n){ return '$' + Number(n).toFixed(2); }
+  function shipAmt(){
+    if(!cart.length) return 0;
+    var bars = cart.filter(function(i){ return i.id !== 'sticker'; }).length;
+    if(bars === 0) return 2;
+    return bars <= 4 ? 9 : 20;
+  }
+  function applySoldOut(){
+    document.querySelectorAll('.add-btn').forEach(function(btn){
+      var id = btn.getAttribute('data-id');
+      if(id === 'sticker') return;
+      if(typeof stock[id] === 'number' && stock[id] <= 0){
+        btn.disabled = true;
+        btn.textContent = 'Sold Out';
+        btn.classList.add('opacity-50');
+      }
+    });
+  }
+  function loadStock(){
+    fetch(STOCK_URL).then(function(r){ return r.json(); }).then(function(d){
+      stock = d || {};
+      applySoldOut();
+    }).catch(function(){});
+  }
+  function render(){
+    var count = cart.length;
+    var badge = document.getElementById('cart-count');
+    badge.textContent = count;
+    if(count > 0) badge.classList.remove('hidden'); else badge.classList.add('hidden');
+    document.getElementById('checkout-btn').disabled = count === 0;
+    var box = document.getElementById('cart-items');
+    if(!cart.length){
+      box.innerHTML = '<p class="text-gray-500 text-center py-8">Your cart is empty</p>';
+    } else {
+      box.innerHTML = cart.map(function(i){
+        return '<div class="flex justify-between py-3 border-b border-copper-900/30"><div><div class="font-medium">'+i.name+'</div><div class="text-sm text-gray-400">'+money(i.price)+'</div></div><div class="text-right"><div class="text-copper-300">'+money(i.price)+'</div><button type="button" class="rm text-xs text-red-400" data-id="'+i.id+'">Remove</button></div></div>';
+      }).join('');
+      box.querySelectorAll('.rm').forEach(function(b){
+        b.onclick = function(){ cart = cart.filter(function(x){ return x.id !== b.getAttribute('data-id'); }); render(); };
+      });
+    }
+    var sub = cart.reduce(function(s,i){ return s + i.price; }, 0);
+    var sh = shipAmt();
+    document.getElementById('cart-subtotal').textContent = money(sub);
+    document.getElementById('cart-shipping').textContent = money(sh);
+    document.getElementById('cart-total').textContent = money(sub + sh);
+  }
+  function openCart(){
+    document.getElementById('cart-drawer').classList.remove('translate-x-full');
+    document.getElementById('cart-overlay').classList.remove('hidden');
+  }
+  function closeCart(){
+    document.getElementById('cart-drawer').classList.add('translate-x-full');
+    document.getElementById('cart-overlay').classList.add('hidden');
+  }
+  function checkout(){
+    if(busy || !cart.length) return;
+    busy = true;
+    var items = cart.map(function(i){ return { id: i.id, qty: 1 }; });
+    var names = cart.map(function(i){ return i.name; }).join(', ');
+    var total = cart.reduce(function(s,i){ return s + i.price; }, 0) + shipAmt();
+    fetch(STOCK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: items })
+    }).then(function(r){ return r.json(); }).then(function(d){
+      if(d && d.stock){ stock = d.stock; applySoldOut(); }
+    }).catch(function(){});
+    var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'https://www.paypal.com/cgi-bin/webscr';
+    function add(n,v){ var i = document.createElement('input'); i.type = 'hidden'; i.name = n; i.value = v; form.appendChild(i); }
+    add('cmd', '_xclick');
+    add('business', 'cjbullions@yahoo.com');
+    add('item_name', 'CJ Bullion: ' + names);
+    add('amount', total.toFixed(2));
+    add('currency_code', 'USD');
+    add('no_shipping', '2');
+    document.body.appendChild(form);
+    form.submit();
+  }
+
+  document.querySelectorAll('.add-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var id = btn.getAttribute('data-id');
+      var name = btn.getAttribute('data-name');
+      var price = Number(btn.getAttribute('data-price'));
+      if(id !== 'sticker' && stock[id] === 0){ alert('Sold out.'); return; }
+      if(cart.some(function(x){ return x.id === id; })){ alert('Already in cart — each bar is unique.'); openCart(); return; }
+      cart.push({ id: id, name: name, price: price });
+      render();
+      openCart();
+    });
+  });
+  document.getElementById('cart-btn').onclick = openCart;
+  document.getElementById('close-cart').onclick = closeCart;
+  document.getElementById('cart-overlay').onclick = closeCart;
+  document.getElementById('checkout-btn').onclick = checkout;
+  loadStock();
+  render();
+})();
+</script>
+</body>
+</html>

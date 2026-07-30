@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CJ Bullion | Custom Pure Copper Bars</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0a0a;color:#f3f4f6;font-family:system-ui,-apple-system,sans-serif;line-height:1.5}
+a{color:#e07050;text-decoration:none}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid #333;position:sticky;top:0;background:#0a0a0aee;z-index:50;backdrop-filter:blur(8px)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700}
+.brand img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid #c97a3f;background:#000}
+.nav-right{display:flex;gap:14px;align-items:center}
+.cart-btn{background:#c97a3f;color:#111;border:0;border-radius:8px;padding:8px 14px;font-weight:700;cursor:pointer}
+.hero{text-align:center;padding:48px 20px;background:linear-gradient(180deg,#1a120a,#0a0a0a)}
+.hero .logo{width:110px;height:110px;border-radius:50%;object-fit:cover;border:3px solid #c97a3f;margin-bottom:16px;background:#000}
+
+.hero .tag{
+  font-family:'Cinzel',Georgia,serif;
+  color:#e07050;
+  font-size:1rem;
+  font-weight:600;
+  letter-spacing:0.28em;
+  text-transform:uppercase;
+}
+.hero p{color:#9ca3af;max-width:420px;margin:0 auto 20px}
+.cta{display:inline-block;background:#c97a3f;color:#111;padding:12px 28px;border-radius:10px;font-weight:700}
+.section{padding:40px 20px;max-width:1100px;margin:0 auto}
+.section h2{text-align:center;font-size:1.6rem;margin-bottom:8px}
+.hint{text-align:center;color:#9ca3af;margin-bottom:24px;font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+.card{background:#171717;border-radius:14px;overflow:hidden;border:1px solid #2a2a2a}
+.card img{width:100%;height:220px;object-fit:cover;display:block;background:#222}
+.card-body{padding:14px}
+.card h3{font-size:1rem;margin-bottom:4px}
+.desc{color:#9ca3af;font-size:.8rem;margin-bottom:8px}
+.price{color:#e8a87c;font-weight:700;font-size:1.15rem}
+.ship{color:#6b7280;font-size:.75rem;margin:4px 0 10px}
+.btn{width:100%;background:#c97a3f;color:#111;border:0;border-radius:8px;padding:10px;font-weight:700;cursor:pointer}
+.btn:hover{filter:brightness(1.08)}
+.logo-row{text-align:center;padding:18px}
+.logo-row img{width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid #c97a3f;background:#000}
+.gallery{display:flex;gap:12px;overflow-x:auto;padding-bottom:10px}
+.gallery img{flex-shrink:0;width:200px;height:280px;object-fit:cover;border-radius:12px;border:1px solid #333}
+.why,.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;text-align:center}
+.why div,.steps div{background:#171717;padding:18px;border-radius:12px;border:1px solid #2a2a2a}
+.why h3{color:#e8a87c;margin-bottom:6px}
+.num{width:36px;height:36px;background:#c97a3f;color:#111;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;margin:0 auto 8px}
+.contact{text-align:center;padding:30px 20px}
+form.msg{max-width:400px;margin:16px auto;display:flex;flex-direction:column;gap:10px}
+input,textarea{background:#171717;border:1px solid #333;border-radius:8px;padding:10px;color:#fff}
+footer{text-align:center;padding:24px;color:#6b7280;font-size:.8rem;border-top:1px solid #222}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center}
+.overlay.open{display:flex}
+.panel{background:#171717;border-radius:14px;padding:22px;width:92%;max-width:400px;max-height:90vh;overflow:auto}
+.panel h2{margin-bottom:12px}
+.close{float:right;background:none;border:0;color:#fff;font-size:1.5rem;cursor:pointer}
+.row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #333;font-size:.9rem}
+.tot{margin-top:12px}
+.tot div{display:flex;justify-content:space-between;margin:4px 0}
+.pay{width:100%;background:#0070ba;color:#fff;border:0;border-radius:8px;padding:12px;font-weight:700;margin-top:14px;cursor:pointer}
+
+.hero h1{
+  font-family:'Cinzel',Georgia,serif;
+  font-size:clamp(2rem,6vw,3.2rem);
+  font-weight:800;
+  letter-spacing:0.08em;
+  line-height:1.15;
+  background:linear-gradient(155deg,
+    #e8b896 0%,
+    #c97a3f 15%,
+    #a85a32 28%,
+    #5a8a6a 38%,
+    #c0452a 48%,
+    #8b2500 55%,
+    #4a7a62 65%,
+    #c97a3f 78%,
+    #e07050 90%,
+    #d4c4a8 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  color:#c0452a;
+  filter:drop-shadow(0 2px 6px rgba(0,0,0,0.55)) drop-shadow(0 0 22px rgba(90,138,106,0.25)) drop-shadow(0 0 18px rgba(192,69,42,0.3));
+  margin-bottom:10px;
+  text-transform:uppercase;
+}
+.hero .tag{
+  color:#e8a87c;
+  font-size:1.15rem;
+  font-weight:600;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+}
+
+
+#intro-screen{
+  position:fixed;inset:0;z-index:9999;background:#000;
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity 0.6s ease,visibility 0.6s;
+}
+#intro-screen.hide{opacity:0;visibility:hidden;pointer-events:none}
+#intro-screen video{
+  width:100%;height:100%;object-fit:cover;
+  max-width:100vw;max-height:100vh;
+}
+#intro-skip{
+  position:absolute;bottom:28px;right:28px;
+  background:rgba(201,122,63,0.9);color:#111;border:0;
+  padding:10px 18px;border-radius:8px;font-weight:700;cursor:pointer;z-index:10000;
+}
+
+</style>
+</head>
+<body>
+
+<div id="intro-screen">
+  <video id="intro-vid" src="intro.mp4" autoplay muted playsinline></video>
+  <button type="button" id="intro-skip">Skip</button>
+</div>
+
+<nav class="nav">
+  <a class="brand" href="#"><img src="logo.jpg" alt="CJ"> CJ Bullion</a>
+  <div class="nav-right">
+    <a href="https://www.instagram.com/copperjunglebullion/" target="_blank" rel="noopener">IG</a>
+    <a href="https://www.tiktok.com/@copperjunglebullion" target="_blank" rel="noopener">TT</a>
+    <a href="https://www.facebook.com/profile.php?id=61576116927892" target="_blank" rel="noopener">FB</a>
+    <button type="button" class="cart-btn" id="open-cart">Cart (<span id="count">0</span>)</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <img class="logo" src="logo.jpg" alt="CJ Bullion">
+  <h1>Pure Copper Bars</h1>
+  <div class="tag">Made to Order</div>
+  <p>Hand-poured pure copper · Stamped CJ Bullion · Direct from the maker</p>
+  <a class="cta" href="#products">Shop Bars</a>
+</section>
+
+<section class="section" id="products">
+  <h2>For Sale</h2>
+  <p class="hint">One-of-a-kind bars · Shipping $9 (1–4 items) · $20 (5+)</p>
+    <div class="grid">
+    <div class="card"><img src="sticker.jpg" alt="Sticker"><div class="card-body"><h3>CJ Bullion Sticker</h3><p class="desc">1 free with every order while supplies last</p><p class="price">$2.00</p><p class="ship">Shipping from $9</p><button type="button" class="btn add" data-id="sticker" data-name="CJ Bullion Sticker" data-price="2">Add to Cart</button></div></div>
+    <div class="card"><img src="round.jpg" alt="Round"><div class="card-body"><h3>High Relief Copper Round</h3><p class="desc">CJ Bullion / GravenMade · .9999 Cu</p><p class="price">$25.00</p><p class="ship">Limited · Shipping from $9</p><button type="button" class="btn add" data-id="round" data-name="High Relief Copper Round" data-price="25">Add to Cart</button></div></div>
+    <div class="card"><img src="bar01-0.jpg" alt="01"><div class="card-body"><h3>2.5 lb Copper Bar #01</h3><p class="desc">1140g · Serial 01</p><p class="price">$60.00</p><p class="ship">Shipping from $9</p><button type="button" class="btn add" data-id="bar01" data-name="2.5 lb Copper Bar #01" data-price="60">Add to Cart</button></div></div>
+    <div class="card"><img src="bar02-0.jpg" alt="02"><div class="card-body"><h3>2.5 lb Copper Bar #02</h3><p class="desc">1151g · Stamped CJ Bullion</p><p class="price">$60.00</p><p class="ship">Shipping from $9</p><button type="button" class="btn add" data-id="bar02" data-name="2.5 lb Copper Bar #02" data-price="60">Add to Cart</button></div></div>
+    <div class="card"><img src="bar1-a.jpg" alt="13oz"><div class="card-body"><h3>1 lb 13 oz Polished Face</h3><p class="desc">Polished face · Stamped</p><p class="price">$35.00</p><p class="ship">Shipping from $9</p><button type="button" class="btn add" data-id="bar13" data-name="1 lb 13 oz Polished Face" data-price="35">Add to Cart</button></div></div>
+    <div class="card"><img src="bar113-0.jpg" alt="11.3"><div class="card-body"><h3>1 lb 11.3 oz Hammered</h3><p class="desc">Hammered · Stamped</p><p class="price">$35.00</p><p class="ship">Shipping from $9</p><button type="button" class="btn add" data-id="bar113" data-name="1 lb 11.3 oz Hammered" data-price="35">Add to Cart</button></div></div>
+    <div class="card"><img src="bar97-0.jpg" alt="9.7"><div class="card-body"><h3>1 lb 9.7 oz Hammered</h3><p class="desc">Hammered rustic patina</p><p class="price">$35.00</p><p class="ship">Shipping from $9</p><button type="button" class="btn add" data-id="bar97" data-name="1 lb 9.7 oz Hammered" data-price="35">Add to Cart</button></div></div>
+    <div class="card"><img src="bar5lb-2.jpg" alt="5lb"><div class="card-body"><h3>5 lb 3.6 oz Full Hammer</h3><p class="desc">Full hammer finish</p><p class="price">$120.00</p><p class="ship">Shipping from $9</p><button type="button" class="btn add" data-id="bar5lb" data-name="5 lb 3.6 oz Full Hammer" data-price="120">Add to Cart</button></div></div>
+    <div class="card"><img src="bar2lb-0.jpg" alt="2lb"><div class="card-body"><h3>2 lb Polished Face</h3><p class="desc">Polished face</p><p class="price">$45.00</p><p class="ship">Shipping from $9</p><button type="button" class="btn add" data-id="bar2lb" data-name="2 lb Polished Face" data-price="45">Add to Cart</button></div></div>
+    <div class="card"><img src="bar116-0.jpg" alt="11.6"><div class="card-body"><h3>1 lb 11.6 oz Hammered</h3><p class="desc">Hammered face</p><p class="price">$30.00</p><p class="ship">Shipping from $9</p><button type="button" class="btn add" data-id="bar116" data-name="1 lb 11.6 oz Hammered" data-price="30">Add to Cart</button></div></div>
+    <div class="card"><img src="bar12oz-0.jpg" alt="12oz"><div class="card-body"><h3>1 lb 12 oz Polished Face</h3><p class="desc">Polished face</p><p class="price">$35.00</p><p class="ship">Shipping from $9</p><button type="button" class="btn add" data-id="bar12oz" data-name="1 lb 12 oz Polished Face" data-price="35">Add to Cart</button></div></div>
+    <div class="card"><img src="bar33-0.jpg" alt="3lb"><div class="card-body"><h3>3 lb 3 oz Hammered</h3><p class="desc">Hammered</p><p class="price">$70.00</p><p class="ship">Shipping from $9</p><button type="button" class="btn add" data-id="bar33" data-name="3 lb 3 oz Hammered" data-price="70">Add to Cart</button></div></div>
+  </div>
+
+</section>
+
+<div class="logo-row"><img src="logo.jpg" alt="CJ"></div>
+
+<section class="section">
+  <h2>Our Copper Bars</h2>
+  <p class="hint">Scroll · Hand-stamped CJ Bullion</p>
+  <div class="gallery">
+    <img src="gallery-1.jpg" alt=""><img src="gallery-2.jpg" alt=""><img src="gallery-3.jpg" alt="">
+    <img src="gallery-4.jpg" alt=""><img src="gallery-5.jpg" alt=""><img src="gallery-6.jpg" alt="">
+    <img src="gallery-7.jpg" alt=""><img src="gallery-8.jpg" alt=""><img src="gallery-9.jpg" alt="">
+    <img src="gallery-10.jpg" alt="">
+  </div>
+</section>
+
+<div class="logo-row"><img src="logo.jpg" alt="CJ"></div>
+
+<section class="section">
+  <h2>Why Buy From CJ Bullion?</h2>
+  <div class="why">
+    <div><h3>Custom Sizes</h3><p style="color:#9ca3af;font-size:.9rem">We pour to order.</p></div>
+    <div><h3>Transparent Pricing</h3><p style="color:#9ca3af;font-size:.9rem">No hidden fees.</p></div>
+    <div><h3>Secure & Insured</h3><p style="color:#9ca3af;font-size:.9rem">USPS Priority tracked.</p></div>
+  </div>
+</section>
+
+<div class="logo-row"><img src="logo.jpg" alt="CJ"></div>
+
+<section class="contact">
+  <h2>Message Board</h2>
+  <p style="color:#9ca3af">Questions or custom orders</p>
+  <p style="margin:8px 0"><a href="mailto:cjbullions@yahoo.com">cjbullions@yahoo.com</a></p>
+  <form class="msg" name="contact" method="POST" data-netlify="true">
+    <input type="hidden" name="form-name" value="contact">
+    <input name="name" placeholder="Your name" required>
+    <input name="email" type="email" placeholder="Email" required>
+    <textarea name="message" rows="3" placeholder="Message" required></textarea>
+    <button class="btn" type="submit">Send Message</button>
+  </form>
+</section>
+
+<footer>PayPal · USPS Priority · © CJ Bullion</footer>
+
+<div class="overlay" id="overlay">
+  <div class="panel">
+    <button type="button" class="close" id="close-cart">&times;</button>
+    <h2>Your Cart</h2>
+    <div id="items"></div>
+    <div class="tot">
+      <div><span>Subtotal</span><span id="sub">$0.00</span></div>
+      <div><span>Shipping</span><span id="ship">$0.00</span></div>
+      <div style="font-weight:700"><span>Total</span><span id="total">$0.00</span></div>
+    </div>
+    <form id="pp" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+      <input type="hidden" name="cmd" value="_cart">
+      <input type="hidden" name="upload" value="1">
+      <input type="hidden" name="business" value="prisoncity315@yahoo.com">
+      <input type="hidden" name="currency_code" value="USD">
+      <div id="pp-fields"></div>
+      <button class="pay" type="submit">Pay with PayPal</button>
+    </form>
+  </div>
+</div>
+
+<script>
+var cart = {};
+function money(n){ return '$' + n.toFixed(2); }
+function render(){
+  var items = document.getElementById('items');
+  var pp = document.getElementById('pp-fields');
+  items.innerHTML = ''; pp.innerHTML = '';
+  var sub = 0, n = 0, bars = 0, i = 1;
+  for (var id in cart){
+    var c = cart[id];
+    sub += c.price * c.qty; n += c.qty;
+    if (id !== 'sticker') bars += c.qty;
+    items.innerHTML += '<div class="row"><span>' + c.name + '</span><span>' + money(c.price) + ' <button type="button" class="rm" data-rm="' + id + '" style="margin-left:8px;background:#444;color:#fff;border:0;border-radius:4px;padding:2px 8px;cursor:pointer;font-size:0.75rem">Remove</button></span></div>';
+    pp.innerHTML += '<input type="hidden" name="item_name_' + i + '" value="' + c.name.replace(/"/g,'') + '">';
+    pp.innerHTML += '<input type="hidden" name="amount_' + i + '" value="' + c.price + '">';
+    pp.innerHTML += '<input type="hidden" name="quantity_' + i + '" value="' + c.qty + '">';
+    i++;
+  }
+  var ship = 0;
+  if (n > 0){
+    if (bars === 0) ship = 2;
+    else if (bars <= 4) ship = 9;
+    else ship = 20;
+  }
+  document.getElementById('sub').textContent = money(sub);
+  document.getElementById('ship').textContent = money(ship);
+  document.getElementById('total').textContent = money(sub + ship);
+  document.getElementById('count').textContent = n;
+  if (ship > 0){
+    pp.innerHTML += '<input type="hidden" name="item_name_' + i + '" value="Shipping">';
+    pp.innerHTML += '<input type="hidden" name="amount_' + i + '" value="' + ship + '">';
+    pp.innerHTML += '<input type="hidden" name="quantity_' + i + '" value="1">';
+  }
+  if (n === 0) items.innerHTML = '<p style="color:#9ca3af">Your cart is empty</p>';
+}
+document.querySelectorAll('.add').forEach(function(b){
+  b.addEventListener('click', function(){
+    var id = b.getAttribute('data-id');
+    if (cart[id] && id !== 'sticker'){ alert('Only one of each unique bar'); return; }
+    cart[id] = { name: b.getAttribute('data-name'), price: parseFloat(b.getAttribute('data-price')), qty: 1 };
+    render();
+  });
+});
+document.getElementById('open-cart').onclick = function(){ document.getElementById('overlay').classList.add('open'); render(); };
+document.getElementById('close-cart').onclick = function(){ document.getElementById('overlay').classList.remove('open'); };
+document.getElementById('overlay').onclick = function(e){ if (e.target === this) this.classList.remove('open'); };
+
+document.getElementById('items').addEventListener('click', function(e){
+  var t = e.target;
+  if (t && t.classList && t.classList.contains('rm')){
+    var id = t.getAttribute('data-rm');
+    delete cart[id];
+    render();
+  }
+});
+
+document.getElementById('pp').addEventListener('submit', function(e){
+  if (Object.keys(cart).length === 0){ e.preventDefault(); alert('Cart is empty'); }
+});
+
+(function(){
+  var screen=document.getElementById('intro-screen');
+  var vid=document.getElementById('intro-vid');
+  var skip=document.getElementById('intro-skip');
+  var done=false;
+  function hide(){
+    if(done)return; done=true;
+    screen.classList.add('hide');
+    try{vid.pause()}catch(e){}
+    setTimeout(function(){screen.style.display='none'},700);
+  }
+  if(skip)skip.onclick=hide;
+  if(vid){
+    vid.addEventListener('ended',hide);
+    vid.addEventListener('error',hide);
+    try{vid.play().catch(hide)}catch(e){hide()}
+  }
+  setTimeout(hide,6500);
+})();
+
+</script>
+</body>
+</html>
